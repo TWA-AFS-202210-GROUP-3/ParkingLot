@@ -11,5 +11,7 @@ namespace Parking
         public Car()
         {
         }
+
+        public object ID { get; internal set; }
     }
 }

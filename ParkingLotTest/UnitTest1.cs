@@ -5,11 +5,13 @@ namespace ParkingLotTest
 
     public class UnitTest1
     {
+        private string parkinglotNo;
+
         [Fact]
         public void Should_return_remove_one_ticket_And_fetch_car_when_get_car()
         {
             var parkingboy = new Parkingboy();
-            var parkinglot = new Parkinglot();
+            var parkinglot = new Parkinglot(parkinglotNo);
             var car = new Car();
 
             var resultremove = parkinglot.Remove(car);
@@ -23,7 +25,7 @@ namespace ParkingLotTest
         public void Should_return_get_ticket_And_park_car_when_parking_new_car()
         {
             var parkingboy = new Parkingboy();
-            var parkinglot = new Parkinglot();
+            var parkinglot = new Parkinglot(parkinglotNo);
             var car = new Car();
 
             var resultadd = parkinglot.Add(car);

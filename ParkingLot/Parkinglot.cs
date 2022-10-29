@@ -8,58 +8,33 @@ namespace Parking
 {
     public class Parkinglot
     {
-        public IList<string> Ticket { get; set; }
+        public string ParkingLotNo { get; set; }
+        private IList<Car> cars;
+        private IList<Parkinglot> parkinglots;
+
+        public Parkinglot(string parkinglotNo)
+        {
+            ParkingLotNo = parkinglotNo;
+            cars = new List<Car>();
+        }
 
         public bool Remove(Car car)
         {
-            throw new NotImplementedException();
+            if (cars.Any(_ => _.ID == car.ID))
+            {
+                cars.Remove(car);
+                return true;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public bool Add(Car car)
         {
-            throw new NotImplementedException();
-        }
-    }
-}
-
-public class CourseClass
-{
-    public string ClassName { get; }
-    private Teacher classTeacher;
-    private IList<Student> classStudents;
-
-    public CourseClass(string className)
-    {
-        ClassName = className;
-        classStudents = new List<Student>();
-    }
-
-    public bool AddTeacher(Teacher teacher)
-    {
-        if (classTeacher != null)
-        {
+            cars.Add(car);
             return false;
         }
-
-        classTeacher = teacher;
-        teacher.CourseClass = this;
-        return true;
-    }
-
-    public ClassWelcome AddStudent(Student student)
-    {
-        if (classStudents.Any(_ => _.Id == student.Id))
-        {
-            return new ClassWelcome();
-        }
-
-        student.CourseClass = this;
-        var welcome = new ClassWelcome
-        {
-            TeacherWelcome = classTeacher?.Welcome(student) ?? string.Empty,
-            StudentsWelcome = classStudents.Select(classStudent => classStudent.Welcome(student)).ToList(),
-        };
-        classStudents.Add(student);
-        return welcome;
     }
 }

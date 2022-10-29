@@ -8,13 +8,21 @@ namespace Parking
 {
     public class Parkingboy
     {
+        private Car carShouldFetch;
+
         public Parkingboy()
         {
         }
 
         public bool Fetchcar(Car car)
         {
-            throw new NotImplementedException();
+            if (carShouldFetch == null)
+            {
+                throw new NotImplementedException();
+            }
+
+            carShouldFetch = car;
+            return true;
         }
 
         public bool Parkcar(Car car)
