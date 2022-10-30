@@ -41,7 +41,7 @@ namespace ParkingLot
         {
             if (parkingTicket == null)
             {
-                throw new ArgumentNullException("Unrecognized parking ticket.");
+                throw new Exception("Please provide your parking ticket.");
             }
 
             if (parkingTicket.IsUsed)

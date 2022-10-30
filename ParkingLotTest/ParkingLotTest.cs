@@ -1,5 +1,6 @@
 namespace ParkingLotTest
 {
+    using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
     using ParkingLot;
     using System;
     using System.Collections.Generic;
@@ -187,6 +188,23 @@ namespace ParkingLotTest
             //when
             //then
             Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
+        }
+
+        [Fact]
+        public void Should_return_error_message_Please_provide_your_parking_ticket_when_customer_get_car_given_a_null_ticket()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Car car = new Car("car1");
+            ParkingLot parkingLot = new ParkingLot();
+            Customer customer = new Customer("customerName", car);
+            customer.GiveCarToPark(parkingBoy, parkingLot);
+            customer.ParkingTicket = null;
+
+            //when
+            //then
+            var exception = Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
+            Assert.Equal("Please provide your parking ticket.", exception.Message);
         }
     }
 }
