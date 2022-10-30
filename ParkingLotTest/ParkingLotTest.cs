@@ -34,6 +34,20 @@ namespace ParkingLotTest
         }
 
         [Fact]
+        public void Should_not_return_car_when_customer_provide_wrong_ticket()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(20);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            Car aCarneedToPark = new Car();
+            Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
+            //when
+            Car aCarFetched = parkingBoy.FetchCar(new Ticket(parkingLot, new Car()));
+            //then
+            Assert.Null(aCarFetched);
+        }
+
+        [Fact]
         public void Should_return_multi_ticket_when_ParkingBoy_Parking_multi_car()
         {
             //given
@@ -71,6 +85,6 @@ namespace ParkingLotTest
             //then
 
             Assert.Equal(3, carsFetched.Count);
-            }
         }
+    }
 }
