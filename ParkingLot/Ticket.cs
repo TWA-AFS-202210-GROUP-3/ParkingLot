@@ -1,6 +1,6 @@
-﻿namespace Parking
+﻿namespace ParkingLotProject
 {
-    internal class Ticket
+    public class Ticket
     {
         public object ID { get; internal set; }
     }

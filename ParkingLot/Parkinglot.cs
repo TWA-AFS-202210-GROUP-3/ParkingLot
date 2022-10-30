@@ -4,37 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Parking
+namespace ParkingLotProject;
+
+public class Parkinglot
 {
-    public class Parkinglot
+    private IList<Car> cars;
+    public string ParkingLotNo { get; }
+    public int ParkinglotTotal { get; }
+    public IList<int> ParkinglotNo { get; }
+    public string ID { get; }
+
+    //public Parkinglot()
+    //{
+    //    cars = new List<Car>();
+    //}
+
+    public bool Remove(Car car)
     {
-        public string ParkingLotNo { get; set; }
-        private IList<Car> cars;
-        private IList<Parkinglot> parkinglots;
-
-        public Parkinglot(string parkinglotNo)
+        if (cars.Any(_ => _.ID == car.ID))
         {
-            ParkingLotNo = parkinglotNo;
-            cars = new List<Car>();
+            cars.Remove(car);
+            return true;
         }
-
-        public bool Remove(Car car)
+        else
         {
-            if (cars.Any(_ => _.ID == car.ID))
-            {
-                cars.Remove(car);
-                return true;
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
+    }
 
-        public bool Add(Car car)
-        {
-            cars.Add(car);
-            return false;
-        }
+    public bool Add(Car car)
+    {
+        cars.Add(car);
+        return false;
     }
 }
