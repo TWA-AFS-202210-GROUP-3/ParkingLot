@@ -16,7 +16,7 @@ namespace ParkingLotService
 
         public string ParkCar(Car car, ParkingLot parkingLot, ParkingBoy parkingBoy)
         {
-            if (parkingLot.ParkingCars.Count < parkingLot.Capacity)
+            if (!parkingLot.IsFull)
             {
                 parkingLot.ParkingCars.Add(car.Plate);
                 string ticketInfo = car.Plate + "; " + parkingLot.ParkingLotId + "; " + parkingBoy.ParkingBoyId;
@@ -82,6 +82,25 @@ namespace ParkingLotService
             }
 
             return plates;
+        }
+
+        public ParkingLot ChooseParkingLot(List<ParkingLot> parkingLots)
+        {
+            int parkingLotId = 0;
+            parkingLots.ForEach(parkingLot =>
+            {
+                if (parkingLot.IsFull)
+                {
+                    parkingLotId++;
+                }
+            });
+
+            if (parkingLotId >= parkingLots.Count)
+            {
+                return null;
+            }
+
+            return parkingLots[parkingLotId];
         }
     }
 }

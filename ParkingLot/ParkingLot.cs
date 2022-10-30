@@ -20,5 +20,9 @@ namespace ParkingLotService
 
         public List<string> ParkingCars { get; set; } = new List<string>();
 
+        public bool IsFull
+        {
+            get { return ParkingCars.Count >= Capacity; }
+        }
     }
 }
