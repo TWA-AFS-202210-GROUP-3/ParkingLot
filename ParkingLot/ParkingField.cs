@@ -36,7 +36,12 @@ namespace ParkingLot
 
         public bool IsFull
         {
-            get { return this.ParkingCars.Count >= Capacity; }
+            get { return ParkingCars.Count >= Capacity; }
+        }
+
+        public int PositionLeft
+        {
+            get { return Capacity - ParkingCars.Count; }
         }
     }
 }

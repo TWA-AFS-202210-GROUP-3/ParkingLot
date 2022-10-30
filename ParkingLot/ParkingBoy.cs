@@ -80,6 +80,30 @@ namespace ParkingLot
             return parkingInfo[0];
         }
 
+        public string Fetch(string ticketNo)
+        {
+            if (ticketNo == null || ticketNo == string.Empty)
+            {
+                return "Please provide your parking ticket.";
+            }
+
+            if (UsedTicketList.Contains(ticketNo))
+            {
+                return "Unrecognized parking ticket";
+            }
+
+            this.UsedTicketList.Add(ticketNo);
+            string[] parkingInfo = ticketNo.Split(" ");
+            this.BoyParkingLots.ForEach(x =>
+            {
+               if (x.Id == parkingInfo[1])
+               {
+                    x.ParkingCars.Remove(ticketNo);
+               }
+            });
+            return parkingInfo[0];
+        }
+
         private string GenerateTicketNo(string carId, ParkingField parkingField)
         {
             string ticketNo = carId + " " + parkingField.Id;
