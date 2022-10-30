@@ -1,6 +1,9 @@
 ﻿namespace ParkingLot
 {
     using System;
+    using System.Collections.Generic;
+    using System.Runtime.ConstrainedExecution;
+
     public class ParkingBoy
     {
         public ParkingBoy(ParkingLot parkingLot)
@@ -23,6 +26,25 @@
             return null;
         }
 
+        public List<Ticket> ParkingMultiCar(List<Car> cars)
+        {
+            List<Ticket> resultTickets = new List<Ticket>();
+            for (int i = 0; i < cars.Count; i++)
+            {
+                Ticket ticket = ParkingCar(cars[i]);
+                if (ticket != null)
+                {
+                    resultTickets.Add(ticket);
+                }
+                else
+                {
+                    return resultTickets;
+                }
+            }
+
+            return resultTickets;
+        }
+
         public Car FetchCar(Ticket ticket)
         {
             Car aCarParked = ticket.ParkedCar;
@@ -32,6 +54,21 @@
             }
 
             return null;
+        }
+
+        public List<Car> FetchMultiCar(List<Ticket> tickets)
+        {
+            List<Car> cars = new List<Car>();
+            for (int i = 0; i < tickets.Count; i++)
+            {
+                Car car = FetchCar(tickets[i]);
+                if (car != null)
+                {
+                    cars.Add(car);
+                }
+            }
+
+            return cars;
         }
     }
 }

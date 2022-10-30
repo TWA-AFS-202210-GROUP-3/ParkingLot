@@ -1,6 +1,7 @@
 namespace ParkingLotTest
 {
     using ParkingLot;
+    using System.Collections.Generic;
     using Xunit;
 
     public class ParkingLotTest
@@ -29,8 +30,47 @@ namespace ParkingLotTest
             //when
             Car aCarFetched = parkingBoy.FetchCar(ticket);
             //then
-
             Assert.NotNull(aCarFetched);
         }
-    }
+
+        [Fact]
+        public void Should_return_multi_ticket_when_ParkingBoy_Parking_multi_car()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(20);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            Car aCarneedToPark1 = new Car();
+            Car aCarneedToPark2 = new Car();
+            Car aCarneedToPark3 = new Car();
+            List<Car> cars = new List<Car>();
+            cars.Add(aCarneedToPark1);
+            cars.Add(aCarneedToPark2);
+            cars.Add(aCarneedToPark3);
+            //when
+            List<Ticket> tickets = parkingBoy.ParkingMultiCar(cars);
+            //then
+            Assert.Equal(3, tickets.Count);
+        }
+
+        [Fact]
+        public void Should_return_multi_car_when_customer_fetch_multi_car_with_ticket()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(20);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            Car aCarneedToPark1 = new Car();
+            Car aCarneedToPark2 = new Car();
+            Car aCarneedToPark3 = new Car();
+            List<Car> cars = new List<Car>();
+            cars.Add(aCarneedToPark1);
+            cars.Add(aCarneedToPark2);
+            cars.Add(aCarneedToPark3);
+            List<Ticket> tickets = parkingBoy.ParkingMultiCar(cars);
+            //when
+            List<Car> carsFetched = parkingBoy.FetchMultiCar(tickets);
+            //then
+
+            Assert.Equal(3, carsFetched.Count);
+            }
+        }
 }
