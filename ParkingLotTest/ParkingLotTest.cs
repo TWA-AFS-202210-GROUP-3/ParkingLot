@@ -67,5 +67,23 @@ namespace ParkingLotTest
             //then
             Assert.Null(parkingLot.Cars.Find(car => car.Name == parkingTickets[1].CarName));
         }
+
+        [Fact]
+        public void Should_not_fetch_the_car_when_costomer_gives_a_wrong_ticket()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Car car = new Car("car1");
+            ParkingLot parkingLot = new ParkingLot();
+            Customer customer = new Customer();
+            customer.ParkingTicket = parkingBoy.Park(car, parkingLot);
+            customer.ParkingTicket = new ParkingTicket("wrong");
+
+            //when
+            bool isSuccess = customer.GetCar(parkingBoy, parkingLot);
+
+            //then
+            Assert.False(isSuccess);
+        }
     }
 }

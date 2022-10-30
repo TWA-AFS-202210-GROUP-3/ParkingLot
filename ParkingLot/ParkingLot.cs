@@ -21,7 +21,13 @@ namespace ParkingLot
 
         public bool RemoveCar(string carName)
         {
-            return Cars.Remove(Cars.First(car => car.Name == carName));
+            var carFromCarName = Cars.FirstOrDefault(car => car.Name == carName);
+            if (carFromCarName == null)
+            {
+                return false;
+            }
+
+            return Cars.Remove(carFromCarName);
         }
     }
 }
