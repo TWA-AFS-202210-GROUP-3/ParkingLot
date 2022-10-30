@@ -41,9 +41,22 @@ namespace ParkingLotTest
             ParkingBoy parkingBoy = new ParkingBoy();
             string ticketNo = null;
             //when
-            string carId = parkingBoy.Fetch(ticketNo);
+            string result = parkingBoy.Fetch(ticketNo);
             //then
-            Assert.Equal("Please provide your parking ticket.", carId);
+            Assert.Equal("Please provide your parking ticket.", result);
+        }
+
+        [Fact]
+        public void Should_show_unrecognized_ticket_message_when_fetch_car_with_wrong_or_used_ticket()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            string ticketNo = "BJ_123456";
+            //when
+            parkingBoy.Fetch(ticketNo);
+            string result = parkingBoy.Fetch(ticketNo);
+            //then
+            Assert.Equal("Unrecognized parking ticket", result);
         }
     }
 }
