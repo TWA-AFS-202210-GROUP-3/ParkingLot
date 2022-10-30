@@ -20,7 +20,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_not_return_ticket_when_ParkingBoy_Parking_a_car_while_no_enough_capacity()
+        public void Should_not_return_ticket_when_ParkingBoy_Parking_a_car_while_not_enough_position()
         {
             //given
             ParkingLot parkingLot = new ParkingLot(2);
