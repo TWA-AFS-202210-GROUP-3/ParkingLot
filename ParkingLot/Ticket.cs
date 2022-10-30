@@ -2,11 +2,16 @@
 {
     public class Ticket
     {
-        public string TicketInfo;
+        public string Plate { get; set; }
+        public string ParkingLoteNumber { get; set; }
+        public string ParkingBoyNumber { get; set; }
+        // public string TicketInfo { get; set; }
 
-        public Ticket(string ticketInfo)
+        public Ticket(string plate, string parkingLoteNumber, string parkingBoyNumber)
         {
-            TicketInfo = ticketInfo;
+            Plate = plate;
+            ParkingLoteNumber = parkingLoteNumber;
+            ParkingBoyNumber = parkingBoyNumber;
         }
     }
 }
