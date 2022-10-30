@@ -14,19 +14,19 @@ namespace ParkingLotTest
         public void Should_return_a_ticket_when_parking_given_a_car()
         {
             var parkinglot = new Parkinglot("Parkinglot1");
-            var parkingboy = new ParkingBoy("Jacky", parkinglot);
+            var parkingboy = new ParkingBoy(parkinglot);
             var car = new Car("JJAA8888");
 
             var ticket = parkingboy.ParkCar(car);
 
-            Assert.IsType<ParkingTicket>(ticket);
+            Assert.IsType<Ticket>(ticket);
         }
 
         [Fact]
         public void Should_return_a_car_when_get_given_a_ticket()
         {
             var parkinglot = new Parkinglot("Parkinglot1");
-            var parkingboy = new ParkingBoy("Jacky", parkinglot);
+            var parkingboy = new ParkingBoy(parkinglot);
             var car = new Car("JJAA8888");
 
             var ticket = parkingboy.ParkCar(car);
@@ -38,7 +38,7 @@ namespace ParkingLotTest
         public void Should_return_multiple_tickets_when_get_given_multiple_cars()
         {
             var parkinglot = new Parkinglot("Parkinglot1");
-            var parkingboy = new ParkingBoy("Jacky", parkinglot);
+            var parkingboy = new ParkingBoy(parkinglot);
             var cars1 = new List<Car> { new Car("JJAA82388"), new Car("JJA3344887") };
             var cars = new List<Car> { new Car("JJAA8888"), new Car("JJAA8887") };
             var car = new Car("JJAA8889");

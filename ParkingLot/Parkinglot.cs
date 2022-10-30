@@ -9,14 +9,15 @@ namespace ParkingLot
     public class Parkinglot
     {
         private string name;
-        private List<ParkingTicket> tickets = new List<ParkingTicket>();
+        private List<Ticket> tickets = new List<Ticket>();
         private List<Car> cars = new List<Car>();
         public Parkinglot(string name)
         {
             this.name = name;
         }
 
-        public List<ParkingTicket> Tickets
+        public string ParkingLotName { get; set; }
+        public List<Ticket> Tickets
         {
             get { return tickets; }
             set { tickets = value; }
@@ -29,12 +30,12 @@ namespace ParkingLot
 
         public int Capacity { get; set; } = 10;
 
-        public ParkingTicket AddCar(Car car)
+        public Ticket AddCar(Car car)
         {
             if (cars.Count < Capacity)
             {
                 cars.Add(car);
-                var ticket = new ParkingTicket(car.CarName);
+                var ticket = new Ticket(car.CarName);
                 tickets.Add(ticket);
                 return ticket;
             }
@@ -44,7 +45,7 @@ namespace ParkingLot
             }
         }
 
-        public Car GetCar(ParkingTicket ticket)
+        public Car GetCar(Ticket ticket)
         {
             if (!tickets.Contains(ticket))
             {
@@ -56,21 +57,21 @@ namespace ParkingLot
             }
         }
 
-        public List<ParkingTicket> AddCars(List<Car> carsInput)
+        public List<Ticket> AddCars(List<Car> carsInput)
         {
             int outOfCapacityCarCount = cars.Count + carsInput.Count - Capacity;
             if (outOfCapacityCarCount <= 0)
             {
                 var newcars = cars.Concat(carsInput).ToList();
                 cars = newcars;
-                var ticketsOutput = carsInput.Select(item => new ParkingTicket(item.CarName)).ToList();
+                var ticketsOutput = carsInput.Select(item => new Ticket(item.CarName)).ToList();
                 return ticketsOutput;
             }
             else if (outOfCapacityCarCount > 0)
             {
                 carsInput.RemoveRange(carsInput.Count - outOfCapacityCarCount, outOfCapacityCarCount);
                 cars.Concat(carsInput);
-                List<ParkingTicket> ticketsOutput = carsInput.Select(item => new ParkingTicket(item.CarName)).ToList();
+                List<Ticket> ticketsOutput = carsInput.Select(item => new Ticket(item.CarName)).ToList();
                 return ticketsOutput.ToList();
             }
             else
@@ -79,7 +80,7 @@ namespace ParkingLot
             }
         }
 
-        public List<Car> GetCars(List<ParkingTicket> ticketsInput)
+        public List<Car> GetCars(List<Ticket> ticketsInput)
         {
             var outPutCars = from aTicket in ticketsInput
                              from aCar in cars

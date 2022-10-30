@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace ParkingLot
 {
-    public class ParkingTicket
+    public class Ticket
     {
         private string ticketId;
         private string carName;
+        private string parkingLotName;
 
-        public ParkingTicket(string carName)
+        public Ticket(Parkinglot parkingLot, string carName)
         {
             ticketId = Guid.NewGuid().ToString();
             this.carName = carName;
+            this.parkingLotName = parkingLot.ParkingLotName;
         }
 
         public string CarName => carName;
@@ -22,6 +24,11 @@ namespace ParkingLot
         public string TicketId
         {
             get { return ticketId; }
+        }
+
+        public string ParkingLotName
+        {
+            get { return parkingLotName; }
         }
     }
 }

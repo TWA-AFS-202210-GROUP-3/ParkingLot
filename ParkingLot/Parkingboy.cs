@@ -8,33 +8,41 @@ namespace ParkingLot
 {
     public class ParkingBoy
     {
-        private string name;
         private Parkinglot parkinglot;
 
-        public ParkingBoy(string name, Parkinglot parkinglot)
+        public ParkingBoy(Parkinglot parkinglot)
         {
-            this.name = name;
             this.parkinglot = parkinglot;
         }
 
-        public ParkingTicket ParkCar(Car car)
+        public Ticket ParkCar(Car car)
         {
             return parkinglot.AddCar(car);
         }
 
-        public Car GetCar(ParkingTicket ticket)
+        public Car GetCar(Ticket ticket)
         {
             return parkinglot.GetCar(ticket);
         }
 
-        public List<Car> GetMultipleCars(List<ParkingTicket> tickets)
+        public List<Car> GetMultipleCars(List<Ticket> tickets)
         {
             return parkinglot.GetCars(tickets);
         }
 
-        public List<ParkingTicket> ParkMultipleCars(List<Car> cars)
+        public List<Ticket> ParkMultipleCars(List<Car> cars)
         {
             return parkinglot.AddCars(cars);
+        }
+
+        public virtual Car FetchCar(Ticket ticket)
+        {
+            if (ticket == null)
+            {
+                throw new ArgumentNullException("Please provide your parking ticket.");
+            }
+
+            return this.parkinglot.GetCar(ticket);
         }
     }
 }
