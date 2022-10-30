@@ -19,5 +19,21 @@ namespace ParkingLotTest
             //then
             Assert.Equal(typeof(ParkingTicket), parkingTicket.GetType());
         }
+
+        [Fact]
+        public void Should_remove_car_from_parking_lot_when_parking_boy_fetch_the_car_given_a_parking_ticket()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Car car = new Car("car1");
+            ParkingLot parkingLot = new ParkingLot();
+            var parkingTicket = parkingBoy.Park(car, parkingLot);
+
+            //when
+            parkingBoy.FetchCar(parkingTicket, parkingLot);
+
+            //then
+            Assert.Null(parkingLot.Cars.Find(car => car.Name == "car1"));
+        }
     }
 }

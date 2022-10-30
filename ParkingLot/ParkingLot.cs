@@ -18,5 +18,10 @@ namespace ParkingLot
         {
             Cars.Add(car);
         }
+
+        public bool RemoveCar(string carName)
+        {
+            return Cars.Remove(Cars.First(car => car.Name == carName));
+        }
     }
 }

@@ -13,5 +13,10 @@ namespace ParkingLot
             parkingLot.AddCar(car);
             return new ParkingTicket(car.Name);
         }
+
+        public bool FetchCar(ParkingTicket parkingTicket, ParkingLot parkingLot)
+        {
+            return parkingLot.RemoveCar(parkingTicket.CarName);
+        }
     }
 }
