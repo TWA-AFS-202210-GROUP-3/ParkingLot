@@ -20,6 +20,25 @@ namespace ParkingLotTest
         }
 
         [Fact]
+        public void Should_not_return_ticket_when_ParkingBoy_Parking_a_car_while_no_enough_capacity()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(2);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            Car aCarneedToPark1 = new Car();
+            Car aCarneedToPark2 = new Car();
+            Car aCarneedToPark3 = new Car();
+            List<Car> cars = new List<Car>();
+            cars.Add(aCarneedToPark1);
+            cars.Add(aCarneedToPark2);
+            List<Ticket> tickets = parkingBoy.ParkingMultiCar(cars);
+            //when
+            Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark3);
+            //then
+            Assert.Null(ticket);
+        }
+
+        [Fact]
         public void Should_return_car_when_customer_fetch_a_car_with_ticket()
         {
             //given
