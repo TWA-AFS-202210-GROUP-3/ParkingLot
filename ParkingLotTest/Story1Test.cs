@@ -21,5 +21,17 @@ namespace ParkingLotTest
             //then
             Assert.Equal("BJ_123456 parking-1", parkingResult);
         }
+
+        [Fact]
+        public void Should_return_right_carId_when_fetch_car_success()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            string ticketNo = "BJ_123456 parking-1";
+            //when
+            string carId = parkingBoy.Fetch(ticketNo);
+            //then
+            Assert.Equal("BJ_123456", carId);
+        }
     }
 }

@@ -37,7 +37,8 @@ namespace ParkingLot
 
         public string Fetch(string ticketNo)
         {
-            return string.Empty;
+            string[] parkingInfo = ticketNo.Split(" ");
+            return parkingInfo[0];
         }
     }
 }
