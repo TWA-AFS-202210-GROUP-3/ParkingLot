@@ -10,6 +10,11 @@ namespace ParkingLot
     {
         public ParkingTicket Park(Car car, ParkingLot parkingLot)
         {
+            if (car.IsParked || parkingLot.Cars.Contains(car))
+            {
+                return null;
+            }
+
             bool isSuccess = parkingLot.AddCar(car);
             if (!isSuccess)
             {

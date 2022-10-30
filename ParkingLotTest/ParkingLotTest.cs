@@ -145,5 +145,21 @@ namespace ParkingLotTest
             Assert.False(isSuccess);
             Assert.Null(customer.ParkingTicket);
         }
+
+        [Fact]
+        public void Should_not_park_when_parking_boy_park_given_a_parked_car()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Car car = new Car("car1");
+            ParkingLot parkingLot = new ParkingLot();
+            parkingBoy.Park(car, parkingLot);
+
+            //when
+            var parkingTicket = parkingBoy.Park(car, parkingLot);
+
+            //then
+            Assert.Null(parkingTicket);
+        }
     }
 }
