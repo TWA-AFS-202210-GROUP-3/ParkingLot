@@ -26,4 +26,11 @@ namespace ParkingLot
         {
         }
     }
+
+    public class NoCarException : Exception
+    {
+        public NoCarException(string message) : base(message)
+        {
+        }
+    }
 }

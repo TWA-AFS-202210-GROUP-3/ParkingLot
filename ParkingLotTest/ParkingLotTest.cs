@@ -20,6 +20,17 @@ namespace ParkingLotTest
         }
 
         [Fact]
+        public void Should_throw_NoCarException_when_ParkingBoy_Parking_a_car()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(20);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            //when
+            //then
+            Assert.Throws<NoCarException>(() => parkingBoy.ParkingCar(null));
+        }
+
+        [Fact]
         public void Should_throw_NotEnoughPositionException_when_ParkingBoy_Parking_a_car_while_not_enough_position()
         {
             //given

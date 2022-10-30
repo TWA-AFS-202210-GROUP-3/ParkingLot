@@ -15,6 +15,11 @@
 
         public Ticket ParkingCar(Car car)
         {
+            if (car == null)
+            {
+                throw new NoCarException("No car to parking");
+            }
+
             if (ParkingLot.AvailableCapacity > 0)
             {
                 ParkingLot.ParkedCar.Add(car);
@@ -26,8 +31,6 @@
             {
                 throw new NotEnoughPositionException("Not enough position.");
             }
-
-            return null;
         }
 
         public List<Ticket> ParkingMultiCar(List<Car> cars)
