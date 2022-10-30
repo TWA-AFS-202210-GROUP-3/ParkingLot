@@ -29,6 +29,11 @@ namespace ParkingLot
 
         public bool FetchCar(ParkingTicket parkingTicket, ParkingLot parkingLot)
         {
+            if (parkingTicket == null)
+            {
+                return false;
+            }
+
             return parkingLot.RemoveCar(parkingTicket.CarName);
         }
     }
