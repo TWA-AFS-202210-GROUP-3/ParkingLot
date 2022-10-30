@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Sockets;
 
 namespace ParkingLotService
 {
@@ -12,6 +11,8 @@ namespace ParkingLotService
         {
             ParkingBoyNumber = parkingBoyNumber;
         }
+
+        public List<string> UsedTicketList { get; set; } = new List<string>();
 
         public string ParkCar(Car car, ParkingLot parkingLot, ParkingBoy parkingBoy)
         {
@@ -35,8 +36,16 @@ namespace ParkingLotService
                 }
                 else
                 {
-                    string plate = ticketInfo.Substring(0, 7);
-                    return plate;
+                    if (UsedTicketList.Contains(ticket.TicketId))
+                    {
+                        return "Ticket has been used.";
+                    }
+                    else
+                    {
+                        UsedTicketList.Add(ticket.TicketId);
+                        string plate = ticketInfo.Substring(0, 7);
+                        return plate;
+                    }
                 }
             }
         }

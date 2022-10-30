@@ -98,5 +98,19 @@ namespace ParkingLotTest
             //then
             Assert.Equal("Wrong ticket.", response);
         }
+
+        [Fact]
+        public void Should_give_null_car_When_parking_boy_fetched_Given_used_ticket()
+        {
+            //given
+            var parkingBoy = new ParkingBoy("Parking Boy 01");
+            var parkingLot = new ParkingLot("Parking Lot 01");
+            var ticket = new Ticket("JA00000", parkingLot.ParkingLotNumber, parkingBoy.ParkingBoyNumber);
+            //when
+            var fetchCar = parkingBoy.FetchCar(ticket);
+            var fetchCarAgain = parkingBoy.FetchCar(ticket);
+            //then
+            Assert.Equal("Ticket has been used.", fetchCarAgain);
+        }
     }
 }
