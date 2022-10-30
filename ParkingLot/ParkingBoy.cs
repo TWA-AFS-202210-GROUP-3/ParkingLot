@@ -22,6 +22,10 @@
 
                 return new Ticket(ParkingLot, car);
             }
+            else
+            {
+                throw new NotEnoughPositionException("Not enough position.");
+            }
 
             return null;
         }

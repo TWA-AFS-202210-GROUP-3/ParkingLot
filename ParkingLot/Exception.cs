@@ -19,4 +19,11 @@ namespace ParkingLot
         {
         }
     }
+
+    public class NotEnoughPositionException : Exception
+    {
+        public NotEnoughPositionException(string message) : base(message)
+        {
+        }
+    }
 }

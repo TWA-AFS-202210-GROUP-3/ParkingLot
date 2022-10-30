@@ -20,7 +20,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_not_return_ticket_when_ParkingBoy_Parking_a_car_while_not_enough_position()
+        public void Should_throw_NotEnoughPositionException_when_ParkingBoy_Parking_a_car_while_not_enough_position()
         {
             //given
             ParkingLot parkingLot = new ParkingLot(2);
@@ -33,9 +33,8 @@ namespace ParkingLotTest
             cars.Add(aCarneedToPark2);
             List<Ticket> tickets = parkingBoy.ParkingMultiCar(cars);
             //when
-            Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark3);
             //then
-            Assert.Null(ticket);
+            Assert.Throws<NotEnoughPositionException>(() => parkingBoy.ParkingCar(aCarneedToPark3));
         }
 
         [Fact]
@@ -53,7 +52,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_not_return_car_when_customer_provide_wrong_ticket()
+        public void Should_throw_UnrecognizedTicketException_when_customer_provide_wrong_ticket()
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
@@ -66,7 +65,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_return_car_when_customer_fetch_a_car_without_ticket()
+        public void Should_throw_NoTicketException_when_customer_fetch_a_car_without_ticket()
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
