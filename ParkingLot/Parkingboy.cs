@@ -4,65 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParkingLotProject
+namespace ParkingLot
 {
-    public class Parkingboy
+    public class ParkingBoy
     {
-        private Car carShouldFetch;
-        private IList<int> parkingNo;
-        private int parkingNoCount;
-        private int parkinglotTotal;
-        private bool addResult;
-        private bool removeResult;
+        private string name;
+        private Parkinglot parkinglot;
 
-        public Parkingboy()
+        public ParkingBoy(string name, Parkinglot parkinglot)
         {
+            this.name = name;
+            this.parkinglot = parkinglot;
         }
 
-        //public string FindrightLotNo()
-        //{
-        //    Parkinglot parkinglot = new Parkinglot();
-        //    parkingNo = parkinglot.ParkinglotNo;
-        //    parkingNoCount = parkinglot.ParkinglotNo.Count;
-        //    parkinglotTotal = parkinglot.ParkinglotTotal;
-
-        //    for (int i = 1; i < parkinglot.ParkinglotNo.Count; i++)
-        //    {
-        //        if (parkinglot.ParkinglotNo[i] == 0)
-        //        {
-
-        //        }
-        //    }
-        //    //if (parkinglotTotal == 10)
-        //    //{
-
-        //    //}
-        //}
-
-        public bool Parkcar(Car car, Ticket ticket)
+        public ParkingTicket ParkCar(Car car)
         {
-            ParkingLotService service = new ParkingLotService();
-            addResult = service.AddOne(ticket);
-
-            if (addResult == true)
-            {
-                car.GetTicket();
-            }
-
-            return true;
+            return parkinglot.AddCar(car);
         }
 
-        public bool Fetchcar(Car car, Ticket ticket)
+        public Car GetCar(ParkingTicket ticket)
         {
-            ParkingLotService service = new ParkingLotService();
-            removeResult = service.DeleteOne(ticket);
+            return parkinglot.GetCar(ticket);
+        }
 
-            if (removeResult == true)
-            {
-                car.GiveTicket();
-            }
+        public List<Car> GetMultipleCars(List<ParkingTicket> tickets)
+        {
+            return parkinglot.GetCars(tickets);
+        }
 
-            return true;
+        public List<ParkingTicket> ParkMultipleCars(List<Car> cars)
+        {
+            return parkinglot.AddCars(cars);
         }
     }
 }

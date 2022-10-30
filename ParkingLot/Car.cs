@@ -4,25 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParkingLotProject
+namespace ParkingLot
 {
     public class Car
     {
-        public string ID { get; }
-
-        //public Car()
-        //{
-        //    ID = Guid.NewGuid().ToString();
-        //}
-
-        public void GetTicket()
+        private readonly string carName;
+        public Car(string carName)
         {
-            throw new NotImplementedException();
+            this.carName = carName;
         }
 
-        public void GiveTicket()
+        public string CarName
         {
-            throw new NotImplementedException();
+            get { return carName; }
         }
     }
 }
