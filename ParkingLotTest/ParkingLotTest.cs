@@ -11,7 +11,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
             Car aCarneedToPark = new Car();
             //when
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
@@ -24,7 +24,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
             //when
             //then
             Assert.Throws<NoCarException>(() => parkingBoy.ParkingCar(null));
@@ -35,7 +35,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(2);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
@@ -53,7 +53,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             //when
@@ -67,7 +67,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             //when
@@ -80,7 +80,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             //when
@@ -93,7 +93,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             Car aCarFetched = parkingBoy.FetchCar(ticket);
@@ -107,7 +107,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
@@ -126,7 +126,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
@@ -151,7 +151,7 @@ namespace ParkingLotTest
             List<ParkingLot> parkingLots = new List<ParkingLot>();
             parkingLots.Add(parkingLot1);
             parkingLots.Add(parkingLot2);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLots);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
@@ -174,7 +174,7 @@ namespace ParkingLotTest
             List<ParkingLot> parkingLots = new List<ParkingLot>();
             parkingLots.Add(parkingLot1);
             parkingLots.Add(parkingLot2);
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLots);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
@@ -186,6 +186,23 @@ namespace ParkingLotTest
             List<Ticket> tickets = parkingBoy.ParkingMultiCar(cars);
             //then
             Assert.Equal(parkingLot1, tickets[2].ParkingLot);
+        }
+
+        [Fact]
+        public void Should_return_ticket_For_parkingLot2_when_ParkingBoy_Parking_car_and_the_second_parkingLot_have_more_available_capacity()
+        {
+            //given
+            ParkingLot parkingLot1 = new ParkingLot(4);
+            ParkingLot parkingLot2 = new ParkingLot(10);
+            List<ParkingLot> parkingLots = new List<ParkingLot>();
+            parkingLots.Add(parkingLot1);
+            parkingLots.Add(parkingLot2);
+            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLots);
+            Car aCarneedToPark1 = new Car();
+            //when
+            Ticket tickets = parkingBoy.ParkingCar(aCarneedToPark1);
+            //then
+            Assert.Equal(parkingLot2, tickets.ParkingLot);
         }
     }
 }

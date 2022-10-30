@@ -4,15 +4,15 @@
     using System.Collections.Generic;
     using System.Runtime.ConstrainedExecution;
 
-    public class ParkingBoy
+    public class ParkingBoyBase
     {
         private List<ParkingLot> parkingLots = new List<ParkingLot>();
-        public ParkingBoy(ParkingLot parkingLot)
+        public ParkingBoyBase(ParkingLot parkingLot)
         {
             this.parkingLots.Add(parkingLot);
         }
 
-        public ParkingBoy(List<ParkingLot> parkingLots)
+        public ParkingBoyBase(List<ParkingLot> parkingLots)
         {
             this.parkingLots = parkingLots;
         }
@@ -34,6 +34,22 @@
             }
 
             return ticker;
+        }
+
+        protected virtual Ticket ManageParkingLotToPark(Car car)
+        {
+            for (int i = 0; i < parkingLots.Count; i++)
+            {
+                if (parkingLots[i].AvailableCapacity > 0)
+                {
+                    parkingLots[i].ParkedCar.Add(car);
+                    parkingLots[i].AvailableCapacity--;
+
+                    return new Ticket(parkingLots[i], car);
+                }
+            }
+
+            return null;
         }
 
         public List<Ticket> ParkingMultiCar(List<Car> cars)
@@ -87,22 +103,6 @@
             }
 
             return cars;
-        }
-
-        private Ticket ManageParkingLotToPark(Car car)
-        {
-            for (int i = 0; i < parkingLots.Count; i++)
-            {
-                if (parkingLots[i].AvailableCapacity > 0)
-                {
-                    parkingLots[i].ParkedCar.Add(car);
-                    parkingLots[i].AvailableCapacity--;
-
-                    return new Ticket(parkingLots[i], car);
-                }
-            }
-
-            return null;
         }
     }
 }
