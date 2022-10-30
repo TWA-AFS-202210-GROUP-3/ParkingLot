@@ -49,7 +49,7 @@
         {
             if (ticket == null)
             {
-                return null;
+                throw new NoTicketException("Please provide your parking ticket.");
             }
 
             Car aCarParked = ticket.ParkedCar;

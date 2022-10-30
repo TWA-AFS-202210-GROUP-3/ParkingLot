@@ -74,9 +74,8 @@ namespace ParkingLotTest
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             //when
-            Car aCarFetched = parkingBoy.FetchCar(null);
             //then
-            Assert.Null(aCarFetched);
+            Assert.Throws<NoTicketException>(() => parkingBoy.FetchCar(null));
         }
 
         [Fact]
