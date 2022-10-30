@@ -27,9 +27,10 @@ namespace ParkingLotTest
         {
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingField parkingField = new ParkingField("parking-1");
             string ticketNo = "BJ_123456 parking-1";
             //when
-            string carId = parkingBoy.Fetch(ticketNo);
+            string carId = parkingBoy.Fetch(ticketNo, parkingField);
             //then
             Assert.Equal("BJ_123456", carId);
         }
@@ -39,9 +40,10 @@ namespace ParkingLotTest
         {
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingField parkingField = new ParkingField("parking-1");
             string ticketNo = null;
             //when
-            string result = parkingBoy.Fetch(ticketNo);
+            string result = parkingBoy.Fetch(ticketNo, parkingField);
             //then
             Assert.Equal("Please provide your parking ticket.", result);
         }
@@ -51,12 +53,27 @@ namespace ParkingLotTest
         {
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
-            string ticketNo = "BJ_123456";
+            ParkingField parkingField = new ParkingField("parking-1");
+            string carId = "BJ_123456";
             //when
-            parkingBoy.Fetch(ticketNo);
-            string result = parkingBoy.Fetch(ticketNo);
+            string ticketNo = parkingBoy.Park(carId, parkingField);
+            parkingBoy.Fetch(ticketNo, parkingField);
+            string result = parkingBoy.Fetch(ticketNo, parkingField);
             //then
             Assert.Equal("Unrecognized parking ticket", result);
+        }
+
+        [Fact]
+        public void Should_not_return_ticket_when_parking_lot_no_more_position()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingField parkingField = new ParkingField("parking-1", 0);
+            string carId = "BJ_123456";
+            //when
+            string wrongNotice = parkingBoy.Park(carId, parkingField);
+            //then
+            Assert.Empty(wrongNotice);
         }
     }
 }

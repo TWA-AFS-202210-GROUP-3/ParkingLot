@@ -33,5 +33,10 @@ namespace ParkingLot
         {
             get { return id; }
         }
+
+        public bool IsFull
+        {
+            get { return this.ParkingCars.Count >= Capacity; }
+        }
     }
 }

@@ -30,15 +30,21 @@ namespace ParkingLot
 
         public List<ParkingField> BoyParkingLots { get; set; } = new List<ParkingField>();
 
-        public string Park(string carId, ParkingField parkingLot)
+        public string Park(string carId, ParkingField parkingField)
         {
-            string ticketNo = carId + " " + parkingLot.Id;
+            if (parkingField.IsFull)
+            {
+                return string.Empty;
+            }
+
+            string ticketNo = carId + " " + parkingField.Id;
+            parkingField.ParkingCars.Add(ticketNo);
             return ticketNo;
         }
 
-        public string Fetch(string ticketNo)
+        public string Fetch(string ticketNo, ParkingField parkingField)
         {
-            if (ticketNo == null)
+            if (ticketNo == null || ticketNo == string.Empty)
             {
                 return "Please provide your parking ticket.";
             }
@@ -49,6 +55,7 @@ namespace ParkingLot
             }
 
             this.UsedTicketList.Add(ticketNo);
+            parkingField.ParkingCars.Remove(ticketNo);
             string[] parkingInfo = ticketNo.Split(" ");
             return parkingInfo[0];
         }
