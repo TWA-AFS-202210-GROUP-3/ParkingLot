@@ -6,12 +6,19 @@
 
     public class ParkingBoy
     {
+        private List<ParkingLot> parkingLots = new List<ParkingLot>();
         public ParkingBoy(ParkingLot parkingLot)
         {
-            ParkingLot = parkingLot;
+            this.parkingLots.Add(parkingLot);
         }
 
-        public ParkingLot ParkingLot { get; set; }
+        public ParkingBoy(List<ParkingLot> parkingLots)
+        {
+            this.parkingLots = parkingLots;
+        }
+
+        //public ParkingLot ParkingLot { get; set; }
+        public List<ParkingLot> ParkingLots { get => parkingLots; set => parkingLots = value; }
 
         public Ticket ParkingCar(Car car)
         {
@@ -20,17 +27,13 @@
                 throw new NoCarException("No car to parking");
             }
 
-            if (ParkingLot.AvailableCapacity > 0)
-            {
-                ParkingLot.ParkedCar.Add(car);
-                ParkingLot.AvailableCapacity--;
-
-                return new Ticket(ParkingLot, car);
-            }
-            else
+            Ticket ticker = ManageParkingLotToPark(car);
+            if (ticker == null)
             {
                 throw new NotEnoughPositionException("Not enough position.");
             }
+
+            return ticker;
         }
 
         public List<Ticket> ParkingMultiCar(List<Car> cars)
@@ -60,9 +63,9 @@
             }
 
             Car aCarParked = ticket.ParkedCar;
-            if (ParkingLot.ParkedCar.Contains(aCarParked))
+            if (ticket.ParkingLot.ParkedCar.Contains(aCarParked))
             {
-                ParkingLot.ParkedCar.Remove(aCarParked);
+                ticket.ParkingLot.ParkedCar.Remove(aCarParked);
                 return aCarParked;
             }
             else
@@ -84,6 +87,22 @@
             }
 
             return cars;
+        }
+
+        private Ticket ManageParkingLotToPark(Car car)
+        {
+            for (int i = 0; i < parkingLots.Count; i++)
+            {
+                if (parkingLots[i].AvailableCapacity > 0)
+                {
+                    parkingLots[i].ParkedCar.Add(car);
+                    parkingLots[i].AvailableCapacity--;
+
+                    return new Ticket(parkingLots[i], car);
+                }
+            }
+
+            return null;
         }
     }
 }

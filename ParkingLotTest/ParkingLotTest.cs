@@ -141,5 +141,51 @@ namespace ParkingLotTest
 
             Assert.Equal(3, carsFetched.Count);
         }
+
+        [Fact]
+        public void Should_return_one_ticket_For_parkingLot2_when_ParkingBoy_Parking_multi_car_and_the_first_parkingLot_is_full()
+        {
+            //given
+            ParkingLot parkingLot1 = new ParkingLot(2);
+            ParkingLot parkingLot2 = new ParkingLot(2);
+            List<ParkingLot> parkingLots = new List<ParkingLot>();
+            parkingLots.Add(parkingLot1);
+            parkingLots.Add(parkingLot2);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+            Car aCarneedToPark1 = new Car();
+            Car aCarneedToPark2 = new Car();
+            Car aCarneedToPark3 = new Car();
+            List<Car> cars = new List<Car>();
+            cars.Add(aCarneedToPark1);
+            cars.Add(aCarneedToPark2);
+            cars.Add(aCarneedToPark3);
+            //when
+            List<Ticket> tickets = parkingBoy.ParkingMultiCar(cars);
+            //then
+            Assert.Equal(parkingLot2, tickets[2].ParkingLot);
+        }
+
+        [Fact]
+        public void Should_return_all_ticket_For_parkingLot1_when_ParkingBoy_Parking_multi_car_and_the_first_parkingLot_is_not_full()
+        {
+            //given
+            ParkingLot parkingLot1 = new ParkingLot(4);
+            ParkingLot parkingLot2 = new ParkingLot(2);
+            List<ParkingLot> parkingLots = new List<ParkingLot>();
+            parkingLots.Add(parkingLot1);
+            parkingLots.Add(parkingLot2);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+            Car aCarneedToPark1 = new Car();
+            Car aCarneedToPark2 = new Car();
+            Car aCarneedToPark3 = new Car();
+            List<Car> cars = new List<Car>();
+            cars.Add(aCarneedToPark1);
+            cars.Add(aCarneedToPark2);
+            cars.Add(aCarneedToPark3);
+            //when
+            List<Ticket> tickets = parkingBoy.ParkingMultiCar(cars);
+            //then
+            Assert.Equal(parkingLot1, tickets[2].ParkingLot);
+        }
     }
 }
