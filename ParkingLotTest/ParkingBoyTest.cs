@@ -26,7 +26,7 @@ namespace ParkingLotTest
             //given
             var parkingBoy = new ParkingBoy("Parking Boy 01");
             var parkingLot = new ParkingLot("Parking Lot 01");
-            var ticket = new Ticket("JA88888", parkingLot.ParkingLotNumber, parkingBoy.ParkingBoyNumber);
+            var ticket = new Ticket("JA88888", parkingLot.ParkingLotId, parkingBoy.ParkingBoyId);
             //when
             var car = parkingBoy.FetchCar(ticket);
             //then
@@ -61,9 +61,9 @@ namespace ParkingLotTest
             var parkingLot = new ParkingLot("Parking Lot 01");
             var tickets = new List<Ticket>()
             {
-                new Ticket("JA00000", parkingLot.ParkingLotNumber, parkingBoy.ParkingBoyNumber),
-                new Ticket("JA66666", parkingLot.ParkingLotNumber, parkingBoy.ParkingBoyNumber),
-                new Ticket("JA88888", parkingLot.ParkingLotNumber, parkingBoy.ParkingBoyNumber),
+                new Ticket("JA00000", parkingLot.ParkingLotId, parkingBoy.ParkingBoyId),
+                new Ticket("JA66666", parkingLot.ParkingLotId, parkingBoy.ParkingBoyId),
+                new Ticket("JA88888", parkingLot.ParkingLotId, parkingBoy.ParkingBoyId),
             };
             //when
             var cars = parkingBoy.FetchCars(tickets);
@@ -92,7 +92,7 @@ namespace ParkingLotTest
             //given
             var parkingBoy = new ParkingBoy("Parking Boy 01");
             var parkingLot = new ParkingLot("Parking Lot 01");
-            var ticket = new Ticket("JA12345678", parkingLot.ParkingLotNumber, parkingBoy.ParkingBoyNumber);
+            var ticket = new Ticket("JA12345678", parkingLot.ParkingLotId, parkingBoy.ParkingBoyId);
             //when
             var response = parkingBoy.FetchCar(ticket);
             //then
@@ -100,17 +100,44 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_give_null_car_When_parking_boy_fetched_Given_used_ticket()
+        public void Should_give_ticket_used_msg_When_parking_boy_fetched_Given_used_ticket()
         {
             //given
             var parkingBoy = new ParkingBoy("Parking Boy 01");
             var parkingLot = new ParkingLot("Parking Lot 01");
-            var ticket = new Ticket("JA00000", parkingLot.ParkingLotNumber, parkingBoy.ParkingBoyNumber);
+            var ticket = new Ticket("JA00000", parkingLot.ParkingLotId, parkingBoy.ParkingBoyId);
             //when
             var fetchCar = parkingBoy.FetchCar(ticket);
             var fetchCarAgain = parkingBoy.FetchCar(ticket);
             //then
             Assert.Equal("Ticket has been used.", fetchCarAgain);
+        }
+
+        [Fact]
+        public void Should_give_null_ticket_When_parking_boy_park_the_car_Given_lot_has_no_vacancy()
+        {
+            //given
+            var cars = new List<Car>()
+            {
+                new Car("JA00000"),
+                new Car("JA11111"),
+                new Car("JA22222"),
+                new Car("JA33333"),
+                new Car("JA44444"),
+                new Car("JA55555"),
+                new Car("JA66666"),
+                new Car("JA77777"),
+                new Car("JA88888"),
+                new Car("JA99999"),
+            };
+            var parkingBoy = new ParkingBoy("Parking Boy 01");
+            var parkingLot = new ParkingLot("Parking Lot 01", 10);
+            var tickets = parkingBoy.ParkCars(cars, parkingLot, parkingBoy);
+            var car = new Car("JA12345");
+            //when
+            var response = parkingBoy.ParkCar(car, parkingLot, parkingBoy);
+            //then
+            Assert.Equal("No vacancy.", response);
         }
     }
 }

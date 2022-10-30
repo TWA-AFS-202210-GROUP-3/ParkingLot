@@ -5,19 +5,27 @@ namespace ParkingLotService
 {
     public class ParkingBoy
     {
-        public string ParkingBoyNumber { get; set; }
+        public string ParkingBoyId { get; set; }
 
-        public ParkingBoy(string parkingBoyNumber)
+        public ParkingBoy(string parkingBoyId)
         {
-            ParkingBoyNumber = parkingBoyNumber;
+            ParkingBoyId = parkingBoyId;
         }
 
         public List<string> UsedTicketList { get; set; } = new List<string>();
 
         public string ParkCar(Car car, ParkingLot parkingLot, ParkingBoy parkingBoy)
         {
-            string ticketInfo = car.Plate + "; " + parkingLot.ParkingLotNumber + "; " + parkingBoy.ParkingBoyNumber;
-            return ticketInfo;
+            if (parkingLot.ParkingCars.Count < parkingLot.Capacity)
+            {
+                parkingLot.ParkingCars.Add(car.Plate);
+                string ticketInfo = car.Plate + "; " + parkingLot.ParkingLotId + "; " + parkingBoy.ParkingBoyId;
+                return ticketInfo;
+            }
+            else
+            {
+                return "No vacancy.";
+            }
         }
 
         public string FetchCar(Ticket ticket)
@@ -55,7 +63,8 @@ namespace ParkingLotService
             var tickets = new List<string>();
             foreach (var car in cars)
             {
-                string ticket = car.Plate + "; " + parkingLot.ParkingLotNumber + "; " + parkingBoy.ParkingBoyNumber;
+                parkingLot.ParkingCars.Add(car.Plate);
+                string ticket = car.Plate + "; " + parkingLot.ParkingLotId + "; " + parkingBoy.ParkingBoyId;
                 tickets.Add(ticket);
             }
 

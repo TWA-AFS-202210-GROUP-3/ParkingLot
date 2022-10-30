@@ -1,12 +1,24 @@
-﻿namespace ParkingLotService
+﻿using System.Collections.Generic;
+
+namespace ParkingLotService
 {
     public class ParkingLot
     {
-        public string ParkingLotNumber { get; set; }
+        public string ParkingLotId { get; set; }
+        public int Capacity { get; set; }
 
-        public ParkingLot(string parkingLotNumber)
+        public ParkingLot(string parkingLotId)
         {
-            ParkingLotNumber = parkingLotNumber;
+            ParkingLotId = parkingLotId;
         }
+
+        public ParkingLot(string parkingLotId, int capacity)
+        {
+            ParkingLotId = parkingLotId;
+            Capacity = capacity;
+        }
+
+        public List<string> ParkingCars { get; set; } = new List<string>();
+
     }
 }
