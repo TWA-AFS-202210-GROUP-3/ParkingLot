@@ -10,7 +10,7 @@ namespace ParkingLot
     {
         public ParkingTicket Park(Car car, ParkingLot parkingLot)
         {
-            if (car.IsParked || parkingLot.Cars.Contains(car))
+            if (car == null || car.IsParked || parkingLot.Cars.Contains(car))
             {
                 return null;
             }
@@ -25,7 +25,7 @@ namespace ParkingLot
             return new ParkingTicket(car.Name);
         }
 
-        public List<ParkingTicket> Park(List<Car> cars, ParkingLot parkingLot)
+        public List<ParkingTicket> ParkMultipleCars(List<Car> cars, ParkingLot parkingLot)
         {
             List<ParkingTicket> result = new List<ParkingTicket>();
 

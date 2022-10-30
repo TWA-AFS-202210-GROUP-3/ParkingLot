@@ -46,7 +46,7 @@ namespace ParkingLotTest
             ParkingLot parkingLot = new ParkingLot();
 
             //when
-            parkingBoy.Park(cars, parkingLot);
+            parkingBoy.ParkMultipleCars(cars, parkingLot);
 
             //then
             Assert.Equal(2, parkingLot.Cars.Count);
@@ -59,7 +59,7 @@ namespace ParkingLotTest
             ParkingBoy parkingBoy = new ParkingBoy();
             List<Car> cars = new List<Car> { new Car("car1"), new Car("car2") };
             ParkingLot parkingLot = new ParkingLot();
-            List<ParkingTicket> parkingTickets = parkingBoy.Park(cars, parkingLot);
+            List<ParkingTicket> parkingTickets = parkingBoy.ParkMultipleCars(cars, parkingLot);
 
             //when
             parkingBoy.FetchCar(parkingTickets[1], parkingLot);
@@ -157,6 +157,20 @@ namespace ParkingLotTest
 
             //when
             var parkingTicket = parkingBoy.Park(car, parkingLot);
+
+            //then
+            Assert.Null(parkingTicket);
+        }
+
+        [Fact]
+        public void Should_not_park_when_parking_boy_park_given_a_null_car()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            ParkingLot parkingLot = new ParkingLot();
+
+            //when
+            var parkingTicket = parkingBoy.Park(null, parkingLot);
 
             //then
             Assert.Null(parkingTicket);
