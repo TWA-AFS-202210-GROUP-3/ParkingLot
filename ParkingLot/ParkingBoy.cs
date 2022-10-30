@@ -58,8 +58,10 @@
                 ParkingLot.ParkedCar.Remove(aCarParked);
                 return aCarParked;
             }
-
-            return null;
+            else
+            {
+                throw new UnrecognizedTicketException("Unrecognized parking ticket.");
+            }
         }
 
         public List<Car> FetchMultiCar(List<Ticket> tickets)

@@ -61,9 +61,8 @@ namespace ParkingLotTest
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             //when
-            Car aCarFetched = parkingBoy.FetchCar(new Ticket(parkingLot, new Car()));
             //then
-            Assert.Null(aCarFetched);
+            Assert.Throws<UnrecognizedTicketException>(() => parkingBoy.FetchCar(new Ticket(parkingLot, new Car())));
         }
 
         [Fact]
@@ -90,9 +89,8 @@ namespace ParkingLotTest
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             Car aCarFetched = parkingBoy.FetchCar(ticket);
             //when
-            Car aCarFetchedAgain = parkingBoy.FetchCar(ticket);
             //then
-            Assert.Null(aCarFetchedAgain);
+            Assert.Throws<UnrecognizedTicketException>(() => parkingBoy.FetchCar(ticket));
         }
 
         [Fact]
