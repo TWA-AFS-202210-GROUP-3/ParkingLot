@@ -40,13 +40,13 @@ namespace ParkingLotService
                 var ticketInfo = ticket.Plate + "; " + ticket.ParkingLoteNumber + "; " + ticket.ParkingBoyNumber;
                 if (ticketInfo.Length != ticketInfoRef.Length)
                 {
-                    return "Wrong ticket.";
+                    return "Unrecognized parking ticket.";
                 }
                 else
                 {
                     if (UsedTicketList.Contains(ticket.TicketId))
                     {
-                        return "Ticket has been used.";
+                        return "Unrecognized parking ticket.";
                     }
                     else
                     {

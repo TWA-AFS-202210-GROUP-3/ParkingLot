@@ -96,7 +96,7 @@ namespace ParkingLotTest
             //when
             var response = parkingBoy.FetchCar(ticket);
             //then
-            Assert.Equal("Wrong ticket.", response);
+            Assert.Equal("Unrecognized parking ticket.", response);
         }
 
         [Fact]
@@ -110,7 +110,7 @@ namespace ParkingLotTest
             var fetchCar = parkingBoy.FetchCar(ticket);
             var fetchCarAgain = parkingBoy.FetchCar(ticket);
             //then
-            Assert.Equal("Ticket has been used.", fetchCarAgain);
+            Assert.Equal("Unrecognized parking ticket.", fetchCarAgain);
         }
 
         [Fact]
