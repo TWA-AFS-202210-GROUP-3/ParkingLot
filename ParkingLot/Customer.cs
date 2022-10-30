@@ -18,11 +18,11 @@ namespace ParkingLot
         public ParkingTicket ParkingTicket { get; set; }
         public Car Car { get; set; }
 
-        public bool GiveCarToPark(ParkingBoy parkingBoy, ParkingLot parkingLot)
+        public bool GiveCarToPark(ParkingBoy parkingBoy)
         {
             try
             {
-                ParkingTicket = parkingBoy.Park(Car, parkingLot);
+                ParkingTicket = parkingBoy.Park(Car);
             }
             catch (Exception)
             {
@@ -32,11 +32,11 @@ namespace ParkingLot
             return ParkingTicket == null ? false : true;
         }
 
-        public void GetCar(ParkingBoy parkingBoy, ParkingLot parkingLot)
+        public void GetCar(ParkingBoy parkingBoy )
         {
             try
             {
-                parkingBoy.FetchCar(ParkingTicket, parkingLot);
+                parkingBoy.FetchCar(ParkingTicket);
             }
             catch (Exception e)
             {

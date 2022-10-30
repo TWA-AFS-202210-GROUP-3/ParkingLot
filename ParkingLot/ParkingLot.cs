@@ -18,19 +18,23 @@ namespace ParkingLot
         {
             Cars = new List<Car> { };
             Capacity = capacity;
+            IsFull = false;
         }
 
         public int Capacity { get; set; }
 
+        public bool IsFull { get; set; }
+
         public List<Car> Cars { get; }
         public void AddCar(Car car)
         {
-            if (Cars.Count >= 10)
+            if (IsFull)
             {
                 throw new Exception("Not enough position.");
             }
 
             Cars.Add(car);
+            IsFull = Cars.Count == 10 ? true : false;
         }
 
         public bool RemoveCar(string carName)

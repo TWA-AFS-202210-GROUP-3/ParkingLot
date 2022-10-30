@@ -8,16 +8,33 @@ namespace ParkingLot
 {
     public class ParkingBoy
     {
-        public ParkingTicket Park(Car car, ParkingLot parkingLot)
+        public ParkingBoy()
         {
-            if (car == null || car.IsParked || parkingLot.Cars.Contains(car))
+            ParkingLots = new List<ParkingLot> { new ParkingLot() };
+        }
+
+        public List<ParkingLot> ParkingLots { get; set; }
+
+        public ParkingTicket Park(Car car)
+        {
+            ParkingLot parkingLotNotFull;
+            try
+            {
+                parkingLotNotFull = GetNotFullParkingLot();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            if (car == null || car.IsParked || GetNotFullParkingLot().Cars.Contains(car))
             {
                 return null;
             }
 
             try
             {
-                parkingLot.AddCar(car);
+                parkingLotNotFull.AddCar(car);
             }
             catch (Exception e)
             {
@@ -28,19 +45,19 @@ namespace ParkingLot
             return new ParkingTicket(car.Name);
         }
 
-        public List<ParkingTicket> ParkMultipleCars(List<Car> cars, ParkingLot parkingLot)
+        public List<ParkingTicket> ParkMultipleCars(List<Car> cars)
         {
             List<ParkingTicket> result = new List<ParkingTicket>();
 
             foreach (Car car in cars)
             {
-                result.Add(Park(car, parkingLot));
+                result.Add(Park(car));
             }
 
             return result;
         }
 
-        public void FetchCar(ParkingTicket parkingTicket, ParkingLot parkingLot)
+        public void FetchCar(ParkingTicket parkingTicket)
         {
             if (parkingTicket == null)
             {
@@ -52,7 +69,29 @@ namespace ParkingLot
                 throw new Exception("Used parking ticket.");
             }
 
-            parkingLot.RemoveCar(parkingTicket.CarName);
+            foreach (var parkingLot in ParkingLots)
+            {
+                if (parkingLot.Cars.Find(car => car.Name == parkingTicket.CarName) != null)
+                {
+                    parkingLot.RemoveCar(parkingTicket.CarName);
+                    return;
+                }
+            }
+
+            throw new Exception("Car Not Found.");
+        }
+
+        private ParkingLot GetNotFullParkingLot()
+        {
+            foreach (var parkingLot in ParkingLots)
+            {
+                if (!parkingLot.IsFull)
+                {
+                    return parkingLot;
+                }
+            }
+
+            throw new Exception("Not enough position.");
         }
     }
 }

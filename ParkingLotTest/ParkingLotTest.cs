@@ -14,10 +14,9 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot();
 
             //when
-            var parkingTicket = parkingBoy.Park(car, parkingLot);
+            var parkingTicket = parkingBoy.Park(car);
 
             //then
             Assert.Equal(typeof(ParkingTicket), parkingTicket.GetType());
@@ -29,14 +28,16 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot();
-            var parkingTicket = parkingBoy.Park(car, parkingLot);
+            var parkingTicket = parkingBoy.Park(car);
 
             //when
-            parkingBoy.FetchCar(parkingTicket, parkingLot);
+            parkingBoy.FetchCar(parkingTicket);
 
             //then
-            Assert.Null(parkingLot.Cars.Find(car => car.Name == "car1"));
+            foreach (var parkingLot in parkingBoy.ParkingLots)
+            {
+                Assert.Null(parkingLot.Cars.Find(car => car.Name == "car1"));
+            }
         }
 
         [Fact]
@@ -45,13 +46,12 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             List<Car> cars = new List<Car> { new Car("car1"), new Car("car2") };
-            ParkingLot parkingLot = new ParkingLot();
 
             //when
-            parkingBoy.ParkMultipleCars(cars, parkingLot);
+            parkingBoy.ParkMultipleCars(cars);
 
             //then
-            Assert.Equal(2, parkingLot.Cars.Count);
+            Assert.Equal(2, parkingBoy.ParkingLots[0].Cars.Count);
         }
 
         [Fact]
@@ -60,14 +60,16 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             List<Car> cars = new List<Car> { new Car("car1"), new Car("car2") };
-            ParkingLot parkingLot = new ParkingLot();
-            List<ParkingTicket> parkingTickets = parkingBoy.ParkMultipleCars(cars, parkingLot);
+            List<ParkingTicket> parkingTickets = parkingBoy.ParkMultipleCars(cars);
 
             //when
-            parkingBoy.FetchCar(parkingTickets[1], parkingLot);
+            parkingBoy.FetchCar(parkingTickets[1]);
 
             //then
-            Assert.Null(parkingLot.Cars.Find(car => car.Name == parkingTickets[1].CarName));
+            foreach (var parkingLot in parkingBoy.ParkingLots)
+            {
+                Assert.Null(parkingLot.Cars.Find(car => car.Name == parkingTickets[1].CarName));
+            }
         }
 
         [Fact]
@@ -76,16 +78,13 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot();
             Customer customer = new Customer("customerName", car);
-            customer.GiveCarToPark(parkingBoy, parkingLot);
+            customer.GiveCarToPark(parkingBoy);
             customer.ParkingTicket = new ParkingTicket("wrong");
 
             //when
-            customer.GetCar(parkingBoy, parkingLot);
-
             //then
-            Assert.NotNull(parkingLot.Cars.Find(car => car.Name == "car1"));
+            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy));
         }
 
         [Fact]
@@ -94,14 +93,13 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot();
             Customer customer = new Customer("customerName", car);
-            customer.GiveCarToPark(parkingBoy, parkingLot);
+            customer.GiveCarToPark(parkingBoy);
             customer.ParkingTicket = null;
 
             //when
             //then
-            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
+            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy));
         }
 
         [Fact]
@@ -110,14 +108,13 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot();
             Customer customer = new Customer("customerName", car);
-            customer.GiveCarToPark(parkingBoy, parkingLot);
+            customer.GiveCarToPark(parkingBoy);
             customer.ParkingTicket.Use();
 
             //when
             //then
-            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
+            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy));
         }
 
         [Fact]
@@ -127,17 +124,16 @@ namespace ParkingLotTest
             int parkingLotCapacity = 10;
 
             ParkingBoy parkingBoy = new ParkingBoy();
-            Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot(parkingLotCapacity);
+            Car car = new Car("carToPark");
             Customer customer = new Customer("customerName", car);
 
             for (int i = 0; i < parkingLotCapacity; i++)
             {
-                parkingBoy.Park(new Car("car" + i.ToString()), parkingLot);
+                parkingBoy.Park(new Car("car" + i.ToString()));
             }
 
             //when
-            bool isSuccess = customer.GiveCarToPark(parkingBoy, parkingLot);
+            bool isSuccess = customer.GiveCarToPark(parkingBoy);
 
             //then
             Assert.False(isSuccess);
@@ -150,11 +146,10 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot();
-            parkingBoy.Park(car, parkingLot);
+            parkingBoy.Park(car);
 
             //when
-            var parkingTicket = parkingBoy.Park(car, parkingLot);
+            var parkingTicket = parkingBoy.Park(car);
 
             //then
             Assert.Null(parkingTicket);
@@ -165,10 +160,9 @@ namespace ParkingLotTest
         {
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
-            ParkingLot parkingLot = new ParkingLot();
 
             //when
-            var parkingTicket = parkingBoy.Park(null, parkingLot);
+            var parkingTicket = parkingBoy.Park(null);
 
             //then
             Assert.Null(parkingTicket);
@@ -180,14 +174,13 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot();
             Customer customer = new Customer("customerName", car);
-            customer.GiveCarToPark(parkingBoy, parkingLot);
+            customer.GiveCarToPark(parkingBoy);
             customer.ParkingTicket = null;
 
             //when
             //then
-            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
+            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy));
         }
 
         [Fact]
@@ -196,14 +189,13 @@ namespace ParkingLotTest
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot();
             Customer customer = new Customer("customerName", car);
-            customer.GiveCarToPark(parkingBoy, parkingLot);
+            customer.GiveCarToPark(parkingBoy);
             customer.ParkingTicket = null;
 
             //when
             //then
-            var exception = Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
+            var exception = Assert.Throws<Exception>(() => customer.GetCar(parkingBoy));
             Assert.Equal("Please provide your parking ticket.", exception.Message);
         }
 
@@ -214,18 +206,39 @@ namespace ParkingLotTest
             int parkingLotCapacity = 10;
 
             ParkingBoy parkingBoy = new ParkingBoy();
-            Car car = new Car("car1");
-            ParkingLot parkingLot = new ParkingLot(parkingLotCapacity);
+            Car car = new Car("carToPark");
 
             for (int i = 0; i < parkingLotCapacity; i++)
             {
-                parkingBoy.Park(new Car("car" + i.ToString()), parkingLot);
+                parkingBoy.Park(new Car("car" + i.ToString()));
             }
 
             //when
             //then
-            var exception = Assert.Throws<Exception>(() => parkingBoy.Park(car, parkingLot));
+            var exception = Assert.Throws<Exception>(() => parkingBoy.Park(car));
             Assert.Equal("Not enough position.", exception.Message);
+        }
+
+        [Fact]
+        public void Should_park_car_to_second_parking_lot_when_parking_boy_park_given_first_parking_lot_full()
+        {
+            //given
+            int parkingLotCapacity = 10;
+
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Car car = new Car("carToPark");
+            parkingBoy.ParkingLots.Add(new ParkingLot());
+
+            for (int i = 0; i < parkingLotCapacity; i++)
+            {
+                parkingBoy.Park(new Car("car" + i.ToString()));
+            }
+
+            //when
+            parkingBoy.Park(car);
+
+            //then
+            Assert.Equal(1, parkingBoy.ParkingLots[1].Cars.Count);
         }
     }
 }
