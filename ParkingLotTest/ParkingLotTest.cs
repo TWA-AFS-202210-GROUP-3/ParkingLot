@@ -62,6 +62,21 @@ namespace ParkingLotTest
         }
 
         [Fact]
+        public void Should_return_car_when_customer_fetch_a_car_with_ticket_already_used()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(20);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            Car aCarneedToPark = new Car();
+            Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
+            Car aCarFetched = parkingBoy.FetchCar(ticket);
+            //when
+            Car aCarFetchedAgain = parkingBoy.FetchCar(ticket);
+            //then
+            Assert.Null(aCarFetchedAgain);
+        }
+
+        [Fact]
         public void Should_return_multi_ticket_when_ParkingBoy_Parking_multi_car()
         {
             //given

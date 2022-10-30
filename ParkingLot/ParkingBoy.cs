@@ -55,6 +55,7 @@
             Car aCarParked = ticket.ParkedCar;
             if (ParkingLot.ParkedCar.Contains(aCarParked))
             {
+                ParkingLot.ParkedCar.Remove(aCarParked);
                 return aCarParked;
             }
 
