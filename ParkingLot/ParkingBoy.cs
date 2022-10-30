@@ -81,7 +81,7 @@ namespace ParkingLot
             throw new Exception("Car Not Found.");
         }
 
-        private ParkingLot GetNotFullParkingLot()
+        public virtual ParkingLot GetNotFullParkingLot()
         {
             foreach (var parkingLot in ParkingLots)
             {

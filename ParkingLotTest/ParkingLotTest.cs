@@ -238,7 +238,23 @@ namespace ParkingLotTest
             parkingBoy.Park(car);
 
             //then
-            Assert.Equal(1, parkingBoy.ParkingLots[1].Cars.Count);
+            Assert.Single(parkingBoy.ParkingLots[1].Cars);
+        }
+
+        [Fact]
+        public void Should_park_to_second_parking_lot_when_parking_boy_park_given_first_parking_lot_less_empty_than_second()
+        {
+            //given
+            SmartParkingBoy parkingBoy = new SmartParkingBoy();
+            Car car = new Car("carToPark");
+            parkingBoy.ParkingLots.Add(new ParkingLot());
+            parkingBoy.Park(new Car("car"));
+
+            //when
+            parkingBoy.Park(car);
+
+            //then
+            Assert.Single(parkingBoy.ParkingLots[1].Cars);
         }
     }
 }
