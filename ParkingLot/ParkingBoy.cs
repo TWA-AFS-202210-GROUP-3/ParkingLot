@@ -15,10 +15,13 @@ namespace ParkingLot
                 return null;
             }
 
-            bool isSuccess = parkingLot.AddCar(car);
-            if (!isSuccess)
+            try
             {
-                return null;
+                parkingLot.AddCar(car);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
 
             car.IsParked = true;

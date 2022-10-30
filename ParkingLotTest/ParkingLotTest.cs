@@ -206,5 +206,26 @@ namespace ParkingLotTest
             var exception = Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
             Assert.Equal("Please provide your parking ticket.", exception.Message);
         }
+
+        [Fact]
+        public void Should_return_error_message_Not_enough_position_when_parking_boy_park_given_parking_lot_no_position()
+        {
+            //given
+            int parkingLotCapacity = 10;
+
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Car car = new Car("car1");
+            ParkingLot parkingLot = new ParkingLot(parkingLotCapacity);
+
+            for (int i = 0; i < parkingLotCapacity; i++)
+            {
+                parkingBoy.Park(new Car("car" + i.ToString()), parkingLot);
+            }
+
+            //when
+            //then
+            var exception = Assert.Throws<Exception>(() => parkingBoy.Park(car, parkingLot));
+            Assert.Equal("Not enough position.", exception.Message);
+        }
     }
 }

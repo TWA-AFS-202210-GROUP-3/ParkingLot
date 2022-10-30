@@ -20,7 +20,15 @@ namespace ParkingLot
 
         public bool GiveCarToPark(ParkingBoy parkingBoy, ParkingLot parkingLot)
         {
-            ParkingTicket = parkingBoy.Park(Car, parkingLot);
+            try
+            {
+                ParkingTicket = parkingBoy.Park(Car, parkingLot);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
             return ParkingTicket == null ? false : true;
         }
 
