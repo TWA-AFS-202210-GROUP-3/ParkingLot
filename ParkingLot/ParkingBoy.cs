@@ -34,6 +34,11 @@ namespace ParkingLot
                 return false;
             }
 
+            if (parkingTicket.IsUsed)
+            {
+                return false;
+            }
+
             return parkingLot.RemoveCar(parkingTicket.CarName);
         }
     }

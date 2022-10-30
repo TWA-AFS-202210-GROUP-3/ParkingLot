@@ -103,5 +103,23 @@ namespace ParkingLotTest
             //then
             Assert.False(isSuccess);
         }
+
+        [Fact]
+        public void Should_not_fetch_the_car_when_costomer_gives_used_ticket()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Car car = new Car("car1");
+            ParkingLot parkingLot = new ParkingLot();
+            Customer customer = new Customer();
+            customer.ParkingTicket = parkingBoy.Park(car, parkingLot);
+            customer.ParkingTicket.Use();
+
+            //when
+            bool isSuccess = customer.GetCar(parkingBoy, parkingLot);
+
+            //then
+            Assert.False(isSuccess);
+        }
     }
 }
