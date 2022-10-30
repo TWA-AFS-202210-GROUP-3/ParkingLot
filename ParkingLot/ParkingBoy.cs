@@ -47,6 +47,11 @@
 
         public Car FetchCar(Ticket ticket)
         {
+            if (ticket == null)
+            {
+                return null;
+            }
+
             Car aCarParked = ticket.ParkedCar;
             if (ParkingLot.ParkedCar.Contains(aCarParked))
             {

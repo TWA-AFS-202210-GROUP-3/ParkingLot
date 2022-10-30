@@ -48,6 +48,20 @@ namespace ParkingLotTest
         }
 
         [Fact]
+        public void Should_return_car_when_customer_fetch_a_car_without_ticket()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(20);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            Car aCarneedToPark = new Car();
+            Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
+            //when
+            Car aCarFetched = parkingBoy.FetchCar(null);
+            //then
+            Assert.Null(aCarFetched);
+        }
+
+        [Fact]
         public void Should_return_multi_ticket_when_ParkingBoy_Parking_multi_car()
         {
             //given
