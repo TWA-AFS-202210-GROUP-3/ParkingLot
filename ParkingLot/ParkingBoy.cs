@@ -34,12 +34,32 @@ namespace ParkingLot
         {
             if (parkingField.IsFull)
             {
+                return "Not enough position.";
+            }
+
+            if (carId == null || parkingField.ParkingCars.Contains(carId))
+            {
                 return string.Empty;
             }
 
-            string ticketNo = carId + " " + parkingField.Id;
-            parkingField.ParkingCars.Add(ticketNo);
-            return ticketNo;
+            return GenerateTicketNo(carId, parkingField);
+        }
+
+        public string Park(string carId, List<ParkingField> parkingFields)
+        {
+            ParkingField parkingField = ChooseParkingLot(parkingFields);
+
+            if (parkingField == null)
+            {
+                return "Not enough position.";
+            }
+
+            if (carId == null || parkingField.ParkingCars.Contains(carId))
+            {
+                return string.Empty;
+            }
+
+            return GenerateTicketNo(carId, parkingField);
         }
 
         public string Fetch(string ticketNo, ParkingField parkingField)
@@ -58,6 +78,31 @@ namespace ParkingLot
             parkingField.ParkingCars.Remove(ticketNo);
             string[] parkingInfo = ticketNo.Split(" ");
             return parkingInfo[0];
+        }
+
+        private string GenerateTicketNo(string carId, ParkingField parkingField)
+        {
+            string ticketNo = carId + " " + parkingField.Id;
+            parkingField.ParkingCars.Add(carId);
+            return ticketNo;
+        }
+
+        private ParkingField ChooseParkingLot(List<ParkingField> parkingFields)
+        {
+            int parkingLotIndex = 0;
+            parkingFields.ForEach(parkingField =>
+            {
+                if (parkingField.IsFull)
+                {
+                    parkingLotIndex++;
+                }
+            });
+            if (parkingLotIndex >= parkingFields.Count)
+            {
+                return null;
+            }
+
+            return parkingFields[parkingLotIndex];
         }
     }
 }
