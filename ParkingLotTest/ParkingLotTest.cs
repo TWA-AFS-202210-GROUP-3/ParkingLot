@@ -1,0 +1,36 @@
+namespace ParkingLotTest
+{
+    using ParkingLot;
+    using Xunit;
+
+    public class ParkingLotTest
+    {
+        [Fact]
+        public void Should_return_ticket_when_ParkingBoy_Parking_a_car()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(20);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            Car aCarneedToPark = new Car();
+            //when
+            Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
+            //then
+            Assert.NotNull(ticket);
+        }
+
+        [Fact]
+        public void Should_return_car_when_customer_fetch_a_car_with_ticket()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(20);
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            Car aCarneedToPark = new Car();
+            Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
+            //when
+            Car aCarFetched = parkingBoy.FetchCar(ticket);
+            //then
+
+            Assert.NotNull(aCarFetched);
+        }
+    }
+}
