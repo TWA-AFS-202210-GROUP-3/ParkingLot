@@ -14,6 +14,19 @@ namespace ParkingLot
             return new ParkingTicket(car.Name);
         }
 
+        public List<ParkingTicket> Park(List<Car> cars, ParkingLot parkingLot)
+        {
+            List<ParkingTicket> result = new List<ParkingTicket>();
+
+            foreach (Car car in cars)
+            {
+                parkingLot.AddCar(car);
+                result.Add(new ParkingTicket(car.Name));
+            }
+
+            return result;
+        }
+
         public bool FetchCar(ParkingTicket parkingTicket, ParkingLot parkingLot)
         {
             return parkingLot.RemoveCar(parkingTicket.CarName);
