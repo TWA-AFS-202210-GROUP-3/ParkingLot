@@ -11,12 +11,27 @@ namespace ParkingLot
         public ParkingLot()
         {
             Cars = new List<Car> { };
+            Capacity = 10;
         }
 
-        public List<Car> Cars { get; }
-        public void AddCar(Car car)
+        public ParkingLot(int capacity)
         {
+            Cars = new List<Car> { };
+            Capacity = capacity;
+        }
+
+        public int Capacity { get; set; }
+
+        public List<Car> Cars { get; }
+        public bool AddCar(Car car)
+        {
+            if (Cars.Count >= 10)
+            {
+                return false;
+            }
+
             Cars.Add(car);
+            return true;
         }
 
         public bool RemoveCar(string carName)

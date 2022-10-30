@@ -10,7 +10,13 @@ namespace ParkingLot
     {
         public ParkingTicket Park(Car car, ParkingLot parkingLot)
         {
-            parkingLot.AddCar(car);
+            bool isSuccess = parkingLot.AddCar(car);
+            if (!isSuccess)
+            {
+                return null;
+            }
+
+            car.IsParked = true;
             return new ParkingTicket(car.Name);
         }
 
@@ -20,8 +26,7 @@ namespace ParkingLot
 
             foreach (Car car in cars)
             {
-                parkingLot.AddCar(car);
-                result.Add(new ParkingTicket(car.Name));
+                result.Add(Park(car, parkingLot));
             }
 
             return result;

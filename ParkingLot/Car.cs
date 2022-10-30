@@ -11,7 +11,10 @@ namespace ParkingLot
         public Car(string name)
         {
             Name = name;
+            IsParked = false;
         }
+
+        public bool IsParked { get; set; }
 
         public string Name { get; }
     }

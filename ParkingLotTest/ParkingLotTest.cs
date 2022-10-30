@@ -69,14 +69,14 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_not_fetch_the_car_when_costomer_gives_a_wrong_ticket()
+        public void Should_not_fetch_the_car_when_customer_gives_a_wrong_ticket()
         {
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
             ParkingLot parkingLot = new ParkingLot();
-            Customer customer = new Customer();
-            customer.ParkingTicket = parkingBoy.Park(car, parkingLot);
+            Customer customer = new Customer("customerName", car);
+            customer.GiveCarToPark(parkingBoy, parkingLot);
             customer.ParkingTicket = new ParkingTicket("wrong");
 
             //when
@@ -87,14 +87,14 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_not_fetch_the_car_when_costomer_gives_no_ticket()
+        public void Should_not_fetch_the_car_when_customer_gives_no_ticket()
         {
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
             ParkingLot parkingLot = new ParkingLot();
-            Customer customer = new Customer();
-            customer.ParkingTicket = parkingBoy.Park(car, parkingLot);
+            Customer customer = new Customer("customerName", car);
+            customer.GiveCarToPark(parkingBoy, parkingLot);
             customer.ParkingTicket = null;
 
             //when
@@ -105,14 +105,14 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_not_fetch_the_car_when_costomer_gives_used_ticket()
+        public void Should_not_fetch_the_car_when_customer_gives_used_ticket()
         {
             //given
             ParkingBoy parkingBoy = new ParkingBoy();
             Car car = new Car("car1");
             ParkingLot parkingLot = new ParkingLot();
-            Customer customer = new Customer();
-            customer.ParkingTicket = parkingBoy.Park(car, parkingLot);
+            Customer customer = new Customer("customerName", car);
+            customer.GiveCarToPark(parkingBoy, parkingLot);
             customer.ParkingTicket.Use();
 
             //when
@@ -120,6 +120,30 @@ namespace ParkingLotTest
 
             //then
             Assert.False(isSuccess);
+        }
+
+        [Fact]
+        public void Should_customer_get_no_ticket_when_parking_lot_is_full()
+        {
+            //given
+            int parkingLotCapacity = 10;
+
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Car car = new Car("car1");
+            ParkingLot parkingLot = new ParkingLot(parkingLotCapacity);
+            Customer customer = new Customer("customerName", car);
+
+            for (int i = 0; i < parkingLotCapacity; i++)
+            {
+                parkingBoy.Park(new Car("car" + i.ToString()), parkingLot);
+            }
+
+            //when
+            bool isSuccess = customer.GiveCarToPark(parkingBoy, parkingLot);
+
+            //then
+            Assert.False(isSuccess);
+            Assert.Null(customer.ParkingTicket);
         }
     }
 }
