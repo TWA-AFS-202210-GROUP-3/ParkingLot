@@ -24,7 +24,7 @@ namespace ParkingLotService
             }
             else
             {
-                return "No vacancy.";
+                return "Not enough position.";
             }
         }
 
@@ -32,7 +32,7 @@ namespace ParkingLotService
         {
             if (ticket == null)
             {
-                return null;
+                return "Please provide your parking ticket.";
             }
             else
             {

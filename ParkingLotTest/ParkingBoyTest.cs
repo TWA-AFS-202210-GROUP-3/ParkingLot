@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Xunit.Sdk;
 
 namespace ParkingLotTest
 {
@@ -13,7 +14,7 @@ namespace ParkingLotTest
             //given
             var car = new Car("JA88888");
             var parkingBoy = new ParkingBoy("Parking Boy 01");
-            var parkingLot = new ParkingLot("Parking Lot 01");
+            var parkingLot = new ParkingLot("Parking Lot 01", 10);
             //when
             var ticket = parkingBoy.ParkCar(car, parkingLot, parkingBoy);
             //then
@@ -81,9 +82,9 @@ namespace ParkingLotTest
             var parkingLot = new ParkingLot("Parking Lot 01");
             var ticket = new Ticket(null, null, null);
             //when
-            var car = parkingBoy.FetchCar(null);
+            var response = parkingBoy.FetchCar(null);
             //then
-            Assert.Null(car);
+            Assert.Equal("Please provide your parking ticket.", response);
         }
 
         [Fact]
@@ -132,12 +133,13 @@ namespace ParkingLotTest
             };
             var parkingBoy = new ParkingBoy("Parking Boy 01");
             var parkingLot = new ParkingLot("Parking Lot 01", 10);
+            parkingLot.ParkingCars = new List<string>();
             var tickets = parkingBoy.ParkCars(cars, parkingLot, parkingBoy);
             var car = new Car("JA12345");
             //when
             var response = parkingBoy.ParkCar(car, parkingLot, parkingBoy);
             //then
-            Assert.Equal("No vacancy.", response);
+            Assert.Equal("Not enough position.", response);
         }
     }
 }
