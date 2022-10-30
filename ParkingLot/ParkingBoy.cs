@@ -32,11 +32,23 @@ namespace ParkingLot
 
         public string Park(string carId, ParkingField parkingLot)
         {
-            return carId + " " + parkingLot.Id;
+            string ticketNo = carId + " " + parkingLot.Id;
+            return ticketNo;
         }
 
         public string Fetch(string ticketNo)
         {
+            if (ticketNo == null)
+            {
+                return "Please provide your parking ticket.";
+            }
+
+            if (UsedTicketList.Contains(ticketNo))
+            {
+                return "Unrecognized parking ticket";
+            }
+
+            this.UsedTicketList.Add(ticketNo);
             string[] parkingInfo = ticketNo.Split(" ");
             return parkingInfo[0];
         }

@@ -33,5 +33,17 @@ namespace ParkingLotTest
             //then
             Assert.Equal("BJ_123456", carId);
         }
+
+        [Fact]
+        public void Should_show_provide_ticket_message_when_fetch_car_without_ticket()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            string ticketNo = null;
+            //when
+            string carId = parkingBoy.Fetch(ticketNo);
+            //then
+            Assert.Equal("Please provide your parking ticket.", carId);
+        }
     }
 }
