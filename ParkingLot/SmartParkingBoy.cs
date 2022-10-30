@@ -7,9 +7,9 @@ namespace ParkingLotService
     {
         public string SmartParkingBoyId { get; set; }
 
-        public SmartParkingBoy(string ParkingBoyId) : base(ParkingBoyId)
+        public SmartParkingBoy(string parkingBoyId) : base(parkingBoyId)
         {
-            SmartParkingBoyId = ParkingBoyId;
+            SmartParkingBoyId = parkingBoyId;
         }
 
         public string ParkCar(Car car, List<ParkingLot> parkingLots, SmartParkingBoy smartParkingBoy)
@@ -34,12 +34,10 @@ namespace ParkingLotService
                 return null;
             }
 
-            // ParkingLot parkingLot = parkingLots.OrderByDescending(parkingLot => (parkingLot.Capacity - parkingLot.ParkingCars.Count)).ElementAt(0);
-
             var positionLeft = new List<int>();
-            for (var i = 0; i < parkingLots.Count; i++)
+            foreach (var parkingLot in parkingLots)
             {
-                positionLeft.Add(parkingLots[i].Capacity - parkingLots[i].ParkingCars.Count);
+                positionLeft.Add(parkingLot.Capacity - parkingLot.ParkingCars.Count);
             }
 
             int lotIndex = positionLeft.IndexOf(positionLeft.Max());

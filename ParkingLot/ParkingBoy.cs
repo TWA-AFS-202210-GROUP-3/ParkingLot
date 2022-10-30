@@ -28,6 +28,19 @@ namespace ParkingLotService
             }
         }
 
+        public List<string> ParkCars(List<Car> cars, ParkingLot parkingLot, ParkingBoy parkingBoy)
+        {
+            var tickets = new List<string>();
+            foreach (var car in cars)
+            {
+                parkingLot.ParkingCars.Add(car.Plate);
+                string ticket = car.Plate + "; " + parkingLot.ParkingLotId + "; " + parkingBoy.ParkingBoyId;
+                tickets.Add(ticket);
+            }
+
+            return tickets;
+        }
+
         public string FetchCar(Ticket ticket)
         {
             if (ticket == null)
@@ -56,19 +69,6 @@ namespace ParkingLotService
                     }
                 }
             }
-        }
-
-        public List<string> ParkCars(List<Car> cars, ParkingLot parkingLot, ParkingBoy parkingBoy)
-        {
-            var tickets = new List<string>();
-            foreach (var car in cars)
-            {
-                parkingLot.ParkingCars.Add(car.Plate);
-                string ticket = car.Plate + "; " + parkingLot.ParkingLotId + "; " + parkingBoy.ParkingBoyId;
-                tickets.Add(ticket);
-            }
-
-            return tickets;
         }
 
         public List<string> FetchCars(List<Ticket> tickets)
