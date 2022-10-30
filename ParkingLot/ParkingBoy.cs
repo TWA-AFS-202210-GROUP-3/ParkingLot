@@ -37,19 +37,19 @@ namespace ParkingLot
             return result;
         }
 
-        public bool FetchCar(ParkingTicket parkingTicket, ParkingLot parkingLot)
+        public void FetchCar(ParkingTicket parkingTicket, ParkingLot parkingLot)
         {
             if (parkingTicket == null)
             {
-                return false;
+                throw new ArgumentNullException("Unrecognized parking ticket.");
             }
 
             if (parkingTicket.IsUsed)
             {
-                return false;
+                throw new Exception("Used parking ticket.");
             }
 
-            return parkingLot.RemoveCar(parkingTicket.CarName);
+            parkingLot.RemoveCar(parkingTicket.CarName);
         }
     }
 }

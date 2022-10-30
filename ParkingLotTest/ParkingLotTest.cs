@@ -1,6 +1,7 @@
 namespace ParkingLotTest
 {
     using ParkingLot;
+    using System;
     using System.Collections.Generic;
     using Xunit;
 
@@ -80,10 +81,10 @@ namespace ParkingLotTest
             customer.ParkingTicket = new ParkingTicket("wrong");
 
             //when
-            bool isSuccess = customer.GetCar(parkingBoy, parkingLot);
+            customer.GetCar(parkingBoy, parkingLot);
 
             //then
-            Assert.False(isSuccess);
+            Assert.NotNull(parkingLot.Cars.Find(car => car.Name == "car1"));
         }
 
         [Fact]
@@ -98,10 +99,8 @@ namespace ParkingLotTest
             customer.ParkingTicket = null;
 
             //when
-            bool isSuccess = customer.GetCar(parkingBoy, parkingLot);
-
             //then
-            Assert.False(isSuccess);
+            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
         }
 
         [Fact]
@@ -116,10 +115,8 @@ namespace ParkingLotTest
             customer.ParkingTicket.Use();
 
             //when
-            bool isSuccess = customer.GetCar(parkingBoy, parkingLot);
-
             //then
-            Assert.False(isSuccess);
+            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
         }
 
         [Fact]
@@ -174,6 +171,22 @@ namespace ParkingLotTest
 
             //then
             Assert.Null(parkingTicket);
+        }
+
+        [Fact]
+        public void Should_return_error_message_when_customer_get_car_given_a_null_ticket()
+        {
+            //given
+            ParkingBoy parkingBoy = new ParkingBoy();
+            Car car = new Car("car1");
+            ParkingLot parkingLot = new ParkingLot();
+            Customer customer = new Customer("customerName", car);
+            customer.GiveCarToPark(parkingBoy, parkingLot);
+            customer.ParkingTicket = null;
+
+            //when
+            //then
+            Assert.Throws<Exception>(() => customer.GetCar(parkingBoy, parkingLot));
         }
     }
 }

@@ -24,9 +24,16 @@ namespace ParkingLot
             return ParkingTicket == null ? false : true;
         }
 
-        public bool GetCar(ParkingBoy parkingBoy, ParkingLot parkingLot)
+        public void GetCar(ParkingBoy parkingBoy, ParkingLot parkingLot)
         {
-            return parkingBoy.FetchCar(ParkingTicket, parkingLot);
+            try
+            {
+                parkingBoy.FetchCar(ParkingTicket, parkingLot);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }
