@@ -11,7 +11,7 @@ namespace ParkingLotTest
     public class ParkingLotTest
     {
         [Fact]
-        public void Should_return_ticket_with_2nd_parkinglot_When_park_Given_1st_parkinglot_is_full()
+        public void Should_return_ticket_with_2nd_parking_lot_When_park_Given_1st_parking_lot_is_full()
         {
             //given
             var car = new Car("JA12345");
