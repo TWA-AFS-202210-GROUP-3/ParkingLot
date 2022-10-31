@@ -1,3 +1,5 @@
+using PdfSharp.Drawing;
+
 namespace ParkingLotTest
 {
     using ParkingLot;
@@ -11,7 +13,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLot);
             Car aCarneedToPark = new Car();
             //when
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
@@ -24,7 +26,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLot);
             //when
             //then
             Assert.Throws<NoCarException>(() => parkingBoy.ParkingCar(null));
@@ -35,7 +37,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(2);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLot);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
@@ -53,7 +55,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLot);
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             //when
@@ -67,7 +69,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLot);
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             //when
@@ -80,7 +82,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLot);
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             //when
@@ -93,7 +95,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLot);
             Car aCarneedToPark = new Car();
             Ticket ticket = parkingBoy.ParkingCar(aCarneedToPark);
             Car aCarFetched = parkingBoy.FetchCar(ticket);
@@ -107,7 +109,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLot);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
@@ -126,7 +128,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(20);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLot);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLot);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
@@ -151,7 +153,7 @@ namespace ParkingLotTest
             List<ParkingLot> parkingLots = new List<ParkingLot>();
             parkingLots.Add(parkingLot1);
             parkingLots.Add(parkingLot2);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLots);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLots);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
@@ -174,7 +176,7 @@ namespace ParkingLotTest
             List<ParkingLot> parkingLots = new List<ParkingLot>();
             parkingLots.Add(parkingLot1);
             parkingLots.Add(parkingLot2);
-            ParkingBoyBase parkingBoy = new ParkingBoyBase(parkingLots);
+            NormalParkingBoy parkingBoy = new NormalParkingBoy(parkingLots);
             Car aCarneedToPark1 = new Car();
             Car aCarneedToPark2 = new Car();
             Car aCarneedToPark3 = new Car();
