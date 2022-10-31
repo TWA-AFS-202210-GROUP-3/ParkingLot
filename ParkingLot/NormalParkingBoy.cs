@@ -25,7 +25,7 @@ namespace ParkingLot
                     ParkingLots[i].ParkedCar.Add(car);
                     ParkingLots[i].AvailableCapacity--;
 
-                    return new Ticket(ParkingLots[i], car);
+                    return new Ticket(ParkingLots[i], car.CarID);
                 }
             }
 

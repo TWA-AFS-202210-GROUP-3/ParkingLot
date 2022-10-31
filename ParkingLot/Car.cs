@@ -8,6 +8,11 @@ namespace ParkingLot
 {
     public class Car
     {
-        public string CarName { get; set; }
+        public Car(string carID)
+        {
+            CarID = carID;
+        }
+
+        public string CarID { get; set; }
     }
 }

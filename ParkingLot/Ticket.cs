@@ -8,13 +8,14 @@ namespace ParkingLot
 {
     public class Ticket
     {
-        public Ticket(ParkingLot parkingLot, Car car)
+        public Ticket(ParkingLot parkingLot, string carID)
         {
             ParkingLot = parkingLot;
-            ParkedCar = car;
+            CarID = carID;
         }
 
         public ParkingLot ParkingLot { get; set; }
-        public Car ParkedCar { get; set; }
+        //public Car ParkedCar { get; set; }
+        public string CarID { get; set; }
     }
 }

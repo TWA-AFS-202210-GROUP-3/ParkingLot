@@ -32,7 +32,7 @@ namespace ParkingLot
                 haveMaxCapacityParkingLot.ParkedCar.Add(car);
                 haveMaxCapacityParkingLot.AvailableCapacity--;
 
-                return new Ticket(haveMaxCapacityParkingLot, car);
+                return new Ticket(haveMaxCapacityParkingLot, car.CarID);
             }
 
             return null;

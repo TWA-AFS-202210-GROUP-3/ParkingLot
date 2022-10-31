@@ -61,16 +61,17 @@
                 throw new NoTicketException("Please provide your parking ticket.");
             }
 
-            Car aCarParked = ticket.ParkedCar;
-            if (ticket.ParkingLot.ParkedCar.Contains(aCarParked))
+            string aCarIDParked = ticket.CarID;
+            for (int i = 0; i < ticket.ParkingLot.ParkedCar.Count; i++)
             {
-                ticket.ParkingLot.ParkedCar.Remove(aCarParked);
-                return aCarParked;
+                if (ticket.ParkingLot.ParkedCar[i].CarID == aCarIDParked)
+                {
+                    ticket.ParkingLot.ParkedCar.Remove(ticket.ParkingLot.ParkedCar[i]);
+                    return ticket.ParkingLot.ParkedCar[i];
+                }
             }
-            else
-            {
-                throw new UnrecognizedTicketException("Unrecognized parking ticket.");
-            }
+
+            throw new UnrecognizedTicketException("Unrecognized parking ticket.");
         }
 
         public List<Car> FetchMultiCar(List<Ticket> tickets)
